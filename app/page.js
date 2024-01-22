@@ -4,8 +4,8 @@ import Form from "@/components/Form";
 import Preview from "@/components/Preview";
 
 export default function Home() {
-  const [side, setSide] = useState("front-end");
   const [data, setData] = useState("");
+  const [side, setSide] = useState("front-end");
 
   function updateSide(side) {
     setSide(side);
