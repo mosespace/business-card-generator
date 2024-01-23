@@ -11,17 +11,17 @@ export default function Home() {
     setSide(side);
   }
 
-  function updateData(data) {
+  function updateCompanyName(data) {
     setData(data);
   }
-  // console.log(data);
+
   return (
-    <main className='flex min-h-screen items-center justify-between bg-zinc-950 text-white max-w-screen'>
-      <div className='w-1/2 sticky inset-x-0 bottom-0 top-0 h-screen flex py-10 px-8 justify-center'>
+    <main className='flex flex-col lg:flex-row min-h-screen items-center justify-between bg-zinc-950 text-white max-w-screen'>
+      <div className='w-full lg:w-1/2 sticky inset-x-0 bottom-0 top-0 h-screen lg:flex py-10 px-8 justify-center hidden'>
         <Preview side={side} data={data} />
       </div>
-      <div className='w-1/2 bg-white min-h-screen flex flex-col items-center justify-center py-10 px-24'>
-        <Form toggleMode={updateSide} updateData={updateData} />
+      <div className='w-full lg:w-1/2 bg-white min-h-screen flex flex-col items-center justify-center py-10 px-24'>
+        <Form toggleMode={updateSide} updateCompanyName={updateCompanyName} />
       </div>
     </main>
   );
