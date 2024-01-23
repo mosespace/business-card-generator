@@ -9,7 +9,7 @@ export default function Preview({ side, data }) {
   function updateColor(color) {
     setGetColor(color);
   }
-  console.log(side);
+  // console.log(side);
   return (
     <div className='w-full lg:w-4xl flex flex-col items-center justify-between'>
       {side === "back-side" ? (
@@ -67,7 +67,7 @@ export default function Preview({ side, data }) {
                       id='imageCardName'
                       className='font-medium tracking-widest h-6'
                     >
-                      John Doe
+                      {data}
                     </p>
                   </div>
                   <div>
