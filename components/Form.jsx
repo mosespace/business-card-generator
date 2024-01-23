@@ -6,15 +6,18 @@ import { SiSlideshare } from "react-icons/si";
 import TextInput from "./form_inputs/TextInput";
 import ImageInput from "./form_inputs/ImageInput";
 import { BiSolidCreditCardFront } from "react-icons/bi";
+import { GrFormPrevious } from "react-icons/gr";
 
-export default function Form({ toggleMode, updateData }) {
+export default function Form({ toggleMode, updateCompanyName }) {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
   const [currentDisplay, setCurrentDisplay] = useState("front-side");
+  const [logo, setLogo] = useState("");
 
   const tabs = [
     {
@@ -30,17 +33,29 @@ export default function Form({ toggleMode, updateData }) {
   ];
 
   const companyName = watch("companyName");
+  const cardOwner = watch("cardOwner");
   // console.log(companyName);
-  updateData(companyName);
+
+  // console.log(dataObject);
+  updateCompanyName(companyName);
 
   async function onSubmit(data) {
     data.companyName = companyName;
+    data.companyLogo = logo;
     console.log(data);
-    // data.logo = logoUrl;
+
+    // Checking if All Data Is Valid
+    // Collecting All The Data
+    // Updating the Data In The Global State
+    // Saving The Data In The DB
+    // Updating the current Step
 
     // makePostRequest(setLoading, "api/market", data, "market", reset, redirect);
-    // setLogoUrl("");
+    // setLogo("");
   }
+  // async function onSubmit(data) {
+  //   console.log(data);
+  // }
 
   return (
     <div className='flex flex-col items-center text-gray-900'>
@@ -80,124 +95,133 @@ export default function Form({ toggleMode, updateData }) {
       </div>
 
       {currentDisplay == "front-side" && (
-        <div className='relative mt-6 flex flex-col bg-transparent shadow-none rounded-xl bg-clip-border'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='max-w-screen-lg w-full mt-8 mb-2 sm:w-96'
+        >
+          <div className='relative mt-6 flex flex-col bg-transparent shadow-none rounded-xl bg-clip-border'></div>
           <h4 className='block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900'>
             Edit Front Side
           </h4>
           <p className='block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700'>
             Nice to meet you! Enter your details to register.
           </p>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='max-w-screen-lg w-full mt-8 mb-2 sm:w-96'
+          <TextInput
+            label='Company Logo Name'
+            name='companyName'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Company Logo Name'
+            name='cardOwner'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <ImageInput
+            label='Company Logo'
+            name='companyLogo'
+            register={register}
+            errors={errors}
+            isRequired={true}
+            endpoint='logoUploader'
+          />
+
+          <button
+            // type='submit'
+            // onClick={() => {
+            //   setCurrentDisplay("back-side");
+            //   toggleMode("back-side");
+            // }}
+            className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
           >
-            <TextInput
-              label='Company Logo Name'
-              name='companyName'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <ImageInput
-              label='Company Logo'
-              name='companyLogo'
-              register={register}
-              errors={errors}
-              isRequired={true}
-              endpoint='logoUploader'
-            />
-            <p className='flex items-center font-sans text-sm antialiased font-normal leading-normal text-gray-700'>
-              I agree that the above provided
-              <a
-                href='#'
-                className='font-medium transition-colors hover:text-gray-900'
-              >
-                &nbsp;Information is true and mine
-              </a>
-            </p>
-            <button className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
-              Save Changes
-            </button>
-          </form>
-        </div>
+            Save and go to the back side
+          </button>
+        </form>
       )}
 
       {currentDisplay == "back-side" && (
-        <div className='relative mt-6 flex flex-col bg-transparent shadow-none rounded-xl bg-clip-border'>
-          <h4 className='block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900'>
-            Edit Back Side
-          </h4>
-          <p className='block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700'>
-            Nice to meet you! Enter your details to register.
-          </p>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='max-w-screen-lg w-full mt-8 mb-2 sm:w-96'
-          >
-            <TextInput
-              label='Company Name'
-              name='companyName'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <TextInput
-              label='Card Owner'
-              name='cardOwner'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <TextInput
-              label='Tel Phone (01)'
-              name='cardOwner'
-              type='tel'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <TextInput
-              label='Tel Phone (02)'
-              name='cardOwner'
-              type='tel'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <TextInput
-              label='Email Address'
-              name='cardOwner'
-              type='email'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <TextInput
-              label='Business Location'
-              name='cardOwner'
-              register={register}
-              errors={errors}
-              isRequired={true}
-            />
-            <label
-              className='mt-px font-light text-gray-700 cursor-pointer select-none'
-              htmlFor='remember'
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='max-w-screen-lg w-full mt-8 mb-2 sm:w-96'
+        >
+          <div className='relative flex flex-col bg-transparent shadow-none my-4'>
+            <h4 className='block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900'>
+              Edit Back Side
+            </h4>
+            <p className='block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700 max-w-80'>
+              Nice to meet you! Enter your details that you need on the
+              back-side we will sort it for you.
+            </p>
+          </div>
+
+          <TextInput
+            label='Company Name'
+            name='companyName'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Card Owner'
+            name='cardOwner'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Tel Phone (01)'
+            name='ownerTelOne'
+            type='tel'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Tel Phone (02)'
+            name='ownerTelephone'
+            type='tel'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Email Address'
+            name='cardEmail'
+            type='email'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
+            label='Business Location'
+            name='cardLocation'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <label
+            className='mt-px font-light text-gray-700 cursor-pointer select-none'
+            htmlFor='remember'
+          ></label>
+          <div className='flex justify-between gap-8'>
+            <button
+              type='button'
+              onClick={() => {
+                setCurrentDisplay("front-side");
+                toggleMode("front-side");
+              }}
+              className='mt-6 w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none flex items-center'
             >
-              <p className='flex items-center font-sans text-sm antialiased font-normal leading-normal text-gray-700'>
-                I agree that the above provided
-                <a
-                  href='#'
-                  className='font-medium transition-colors hover:text-gray-900'
-                >
-                  &nbsp;Information is true and mine
-                </a>
-              </p>
-            </label>
-            <button className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
-              Save Changes
+              <GrFormPrevious className='w-5 h-5' /> Previous
             </button>
-          </form>
-        </div>
+            <button className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
+              Download
+            </button>
+          </div>
+        </form>
       )}
     </div>
   );
