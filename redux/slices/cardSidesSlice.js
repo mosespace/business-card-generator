@@ -16,7 +16,7 @@ const cardSideSlice = createSlice({
       //   payload is the actial data
     },
 
-    updateFormDAta: (state, action) => {
+    updateFormData: (state, action) => {
       state.formData = {
         ...state.formData,
         ...action.payload,

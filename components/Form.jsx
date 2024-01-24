@@ -4,19 +4,38 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SiSlideshare } from "react-icons/si";
 import TextInput from "./form_inputs/TextInput";
-import ImageInput from "./form_inputs/ImageInput";
-import { BiSolidCreditCardFront } from "react-icons/bi";
 import { GrFormPrevious } from "react-icons/gr";
+import ImageInput from "./form_inputs/ImageInput";
+import { useDispatch, useSelector } from "react-redux";
+import { BiSolidCreditCardFront } from "react-icons/bi";
+import { setCurrentSlide, updateFormData } from "@/redux/slices/cardSidesSlice";
 
-export default function Form({ toggleMode, updateCompanyName }) {
+export default function Form({
+  toggleMode,
+  updateComponyName,
+  updateCardOwner,
+  updateOwnerTelOne,
+  updateOwnerTelTwo,
+  updateCardEmail,
+  updateCardLocation,
+}) {
+  const currentSide = useSelector((store) => store.sideChange.currentSlide);
+  // console.log(currentSide);
+  const globalData = useSelector((store) => store.sideChange.formData);
+  // console.log(globalData, currentSide);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      ...globalData,
+    },
+  });
 
-  const [currentDisplay, setCurrentDisplay] = useState("front-side");
+  const [currentDisplay, setCurrentDisplay] = useState(currentSide);
   const [logo, setLogo] = useState("");
 
   const tabs = [
@@ -34,15 +53,27 @@ export default function Form({ toggleMode, updateCompanyName }) {
 
   const companyName = watch("companyName");
   const cardOwner = watch("cardOwner");
-  // console.log(companyName);
+  const ownerTelOne = watch("ownerTelOne");
+  const ownerTelTwo = watch("ownerTelTwo");
+  const cardEmail = watch("cardEmail");
+  const cardLocation = watch("cardLocation");
+  // const cardOwner = watch("cardOwner");
 
-  // console.log(dataObject);
-  updateCompanyName(companyName);
+  updateComponyName(companyName);
+  updateCardOwner(cardOwner);
+  updateOwnerTelOne(ownerTelOne);
+  updateOwnerTelTwo(ownerTelTwo);
+  updateCardEmail(cardEmail);
+  updateCardLocation(cardLocation);
 
+  const dispatch = useDispatch();
   async function onSubmit(data) {
-    data.companyName = companyName;
     data.companyLogo = logo;
-    console.log(data);
+
+    dispatch(updateFormData(data));
+    dispatch(setCurrentSlide("back-side"));
+    setCurrentDisplay("back-side");
+    // console.log(data);
 
     // Checking if All Data Is Valid
     // Collecting All The Data
@@ -113,28 +144,26 @@ export default function Form({ toggleMode, updateCompanyName }) {
             errors={errors}
             isRequired={true}
           />
-          <TextInput
-            label='Company Logo Name'
-            name='cardOwner'
-            register={register}
-            errors={errors}
-            isRequired={true}
-          />
+
           <ImageInput
             label='Company Logo'
             name='companyLogo'
             register={register}
             errors={errors}
+            imageUrl={logo}
+            setImageUrl={setLogo}
             isRequired={true}
             endpoint='logoUploader'
           />
 
           <button
             // type='submit'
-            // onClick={() => {
-            //   setCurrentDisplay("back-side");
-            //   toggleMode("back-side");
-            // }}
+            onClick={() => {
+              // dispatch(setCurrentSlide("back-side"));
+              // // Update the currentDisplay state to switch to the front-side form
+              // setCurrentDisplay("back-side");
+              toggleMode("back-side");
+            }}
             className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
           >
             Save and go to the back side
@@ -181,7 +210,7 @@ export default function Form({ toggleMode, updateCompanyName }) {
           />
           <TextInput
             label='Tel Phone (02)'
-            name='ownerTelephone'
+            name='ownerTelTwo'
             type='tel'
             register={register}
             errors={errors}
@@ -210,6 +239,8 @@ export default function Form({ toggleMode, updateCompanyName }) {
             <button
               type='button'
               onClick={() => {
+                dispatch(setCurrentSlide("front-side"));
+                // Update the currentDisplay state to switch to the front-side form
                 setCurrentDisplay("front-side");
                 toggleMode("front-side");
               }}

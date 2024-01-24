@@ -3,7 +3,15 @@ import React, { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Image from "next/image";
 
-export default function Preview({ side, data }) {
+export default function Preview({
+  side,
+  companyName,
+  cardOwner,
+  ownerTelOne,
+  ownerTelTwo,
+  cardEmail,
+  cardLocation,
+}) {
   const [getColor, setGetColor] = useState("#be123c");
 
   function updateColor(color) {
@@ -52,31 +60,31 @@ export default function Preview({ side, data }) {
                   </svg>
                 </div>
                 <div className='pt-1'>
-                  <p className='font-light'>Card Number</p>
+                  <p className='font-light'>{ownerTelTwo}</p>
                   <p
                     id='imageCardNumber'
                     className='font-medium tracking-more-wider h-6'
                   >
-                    4256 4256 4256 4256
+                    {ownerTelOne}
                   </p>
                 </div>
                 <div className='pt-6 flex justify-between'>
                   <div>
-                    <p className='font-light'>Name</p>
+                    <p className='font-light'>{cardOwner}</p>
                     <p
                       id='imageCardName'
                       className='font-medium tracking-widest h-6'
                     >
-                      {data}
+                      {companyName}
                     </p>
                   </div>
                   <div>
-                    <p className='font-light'>Expiry</p>
+                    <p className='font-light'>{cardEmail}</p>
                     <p
                       id='imageExpDate'
                       className='font-medium tracking-wider h-6 w-14'
                     >
-                      12/24
+                      {cardLocation}
                     </p>
                   </div>
                 </div>
@@ -94,11 +102,12 @@ export default function Preview({ side, data }) {
               <Image
                 width={360}
                 height={140}
+                placeholder='empty'
                 src='/npm-logo.png'
                 className='w-full object-contain h-14'
                 alt='Client Logo'
               />
-              <h2 className='font-bold text-xl'>{data}</h2>
+              <h2 className='font-bold text-xl'>{companyName}</h2>
             </div>
           </div>
         </div>
