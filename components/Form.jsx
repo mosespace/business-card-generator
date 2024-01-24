@@ -15,9 +15,13 @@ export default function Form({
   updateComponyName,
   updateCardOwner,
   updateOwnerTelOne,
-  updateOwnerTelTwo,
+  updateCompanyWebsite,
   updateCardEmail,
   updateCardLocation,
+  updateCardOwnerPosition,
+  updateServiceOne,
+  updateServiceTwo,
+  updateServiceThree,
 }) {
   const currentSide = useSelector((store) => store.sideChange.currentSlide);
   // console.log(currentSide);
@@ -54,17 +58,25 @@ export default function Form({
   const companyName = watch("companyName");
   const cardOwner = watch("cardOwner");
   const ownerTelOne = watch("ownerTelOne");
-  const ownerTelTwo = watch("ownerTelTwo");
+  const companyWebsite = watch("companyWebsite");
   const cardEmail = watch("cardEmail");
   const cardLocation = watch("cardLocation");
+  const cardOwnerPosition = watch("cardOwnerPosition");
+  const serviceOne = watch("serviceOne");
+  const serviceTwo = watch("serviceTwo");
+  const serviceThree = watch("serviceThree");
   // const cardOwner = watch("cardOwner");
 
   updateComponyName(companyName);
   updateCardOwner(cardOwner);
   updateOwnerTelOne(ownerTelOne);
-  updateOwnerTelTwo(ownerTelTwo);
+  updateCompanyWebsite(companyWebsite);
   updateCardEmail(cardEmail);
   updateCardLocation(cardLocation);
+  updateCardOwnerPosition(cardOwnerPosition);
+  updateServiceOne(serviceOne);
+  updateServiceTwo(serviceTwo);
+  updateServiceThree(serviceThree);
 
   const dispatch = useDispatch();
   async function onSubmit(data) {
@@ -201,6 +213,13 @@ export default function Form({
             isRequired={true}
           />
           <TextInput
+            label='Card Owner Position'
+            name='cardOwnerPosition'
+            register={register}
+            errors={errors}
+            isRequired={true}
+          />
+          <TextInput
             label='Tel Phone (01)'
             name='ownerTelOne'
             type='tel'
@@ -209,9 +228,9 @@ export default function Form({
             isRequired={true}
           />
           <TextInput
-            label='Tel Phone (02)'
-            name='ownerTelTwo'
-            type='tel'
+            label='Company Website'
+            name='companyWebsite'
+            type='url'
             register={register}
             errors={errors}
             isRequired={true}
@@ -230,6 +249,27 @@ export default function Form({
             register={register}
             errors={errors}
             isRequired={true}
+          />
+          <TextInput
+            label='Service One(1)'
+            name='serviceOne'
+            register={register}
+            errors={errors}
+            isRequired={false}
+          />
+          <TextInput
+            label='Service Two(2)'
+            name='serviceTwo'
+            register={register}
+            errors={errors}
+            isRequired={false}
+          />
+          <TextInput
+            label='Service Three(3)'
+            name='serviceThree'
+            register={register}
+            errors={errors}
+            isRequired={false}
           />
           <label
             className='mt-px font-light text-gray-700 cursor-pointer select-none'
