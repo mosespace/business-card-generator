@@ -9,6 +9,7 @@ import ImageInput from "./form_inputs/ImageInput";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidCreditCardFront } from "react-icons/bi";
 import { setCurrentSlide, updateFormData } from "@/redux/slices/cardSidesSlice";
+import Modalz from "./Modalz";
 
 export default function Form({
   toggleMode,
@@ -288,9 +289,7 @@ export default function Form({
             >
               <GrFormPrevious className='w-5 h-5' /> Previous
             </button>
-            <button className='mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
-              Download
-            </button>
+            <Modalz />
           </div>
         </form>
       )}

@@ -5,6 +5,7 @@ export default withUt({
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "node_modules/flowbite-react/lib/esm/**/*.js",
   ],
   theme: {
     extend: {
@@ -15,5 +16,5 @@ export default withUt({
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 });
