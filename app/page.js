@@ -14,6 +14,7 @@ export default function Home() {
   const [serviceOne, setServiceOne] = useState("");
   const [serviceTwo, setServiceTwo] = useState("");
   const [serviceThree, setServiceThree] = useState("");
+  const [numberOfCards, setNumberOfCards] = useState(0);
 
   const [side, setSide] = useState("front-end");
 
@@ -52,6 +53,10 @@ export default function Home() {
     setServiceThree(serviceThree);
   }
 
+  function updateNumberOfCards(numberOfCards) {
+    setNumberOfCards(numberOfCards);
+  }
+
   return (
     <main className='flex flex-col lg:flex-row min-h-screen items-center justify-between bg-zinc-950 text-white max-w-screen'>
       <div className='w-full lg:w-1/2 sticky inset-x-0 bottom-0 top-0 h-screen lg:flex py-10 px-8 justify-center hidden'>
@@ -67,9 +72,10 @@ export default function Home() {
           serviceOne={serviceOne}
           serviceTwo={serviceTwo}
           serviceThree={serviceThree}
+          numberOfCards={numberOfCards}
         />
       </div>
-      <div className='w-full lg:w-1/2 bg-white min-h-screen flex flex-col items-center justify-center py-10 px-24'>
+      <div className='w-full lg:w-1/2 min-h-screen bg-white flex flex-col items-center justify-center py-10 px-24'>
         <Form
           toggleMode={updateSide}
           updateComponyName={updateComponyName}
@@ -82,6 +88,7 @@ export default function Home() {
           updateServiceOne={updateServiceOne}
           updateServiceTwo={updateServiceTwo}
           updateServiceThree={updateServiceThree}
+          updateNumberOfCards={updateNumberOfCards}
         />
       </div>
     </main>

@@ -5,3 +5,13 @@
 .crediCard.seeBack {
   transform: rotateY(-180deg);
 }
+
+.bg {
+  background-color: hsla(254, 0%, 0%, 1);
+  background-image: radial-gradient(
+      at 32% 75%,
+      hsla(322, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 80% 62%, hsla(323, 96%, 50%, 1) 0px, transparent 50%);
+}

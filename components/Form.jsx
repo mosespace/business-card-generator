@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Modalz from "./Modalz";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SiSlideshare } from "react-icons/si";
@@ -9,7 +10,6 @@ import ImageInput from "./form_inputs/ImageInput";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidCreditCardFront } from "react-icons/bi";
 import { setCurrentSlide, updateFormData } from "@/redux/slices/cardSidesSlice";
-import Modalz from "./Modalz";
 
 export default function Form({
   toggleMode,
@@ -23,6 +23,7 @@ export default function Form({
   updateServiceOne,
   updateServiceTwo,
   updateServiceThree,
+  updateNumberOfCards,
 }) {
   const currentSide = useSelector((store) => store.sideChange.currentSlide);
   // console.log(currentSide);
@@ -86,20 +87,12 @@ export default function Form({
     dispatch(updateFormData(data));
     dispatch(setCurrentSlide("back-side"));
     setCurrentDisplay("back-side");
-    // console.log(data);
-
-    // Checking if All Data Is Valid
-    // Collecting All The Data
-    // Updating the Data In The Global State
-    // Saving The Data In The DB
-    // Updating the current Step
-
-    // makePostRequest(setLoading, "api/market", data, "market", reset, redirect);
-    // setLogo("");
   }
-  // async function onSubmit(data) {
-  //   console.log(data);
-  // }
+
+  const handleDownload = (numberOfCards) => {
+    updateNumberOfCards(numberOfCards);
+    // console.log(`Download/Print ${numberOfCards} cards`);
+  };
 
   return (
     <div className='flex flex-col items-center text-gray-900'>
@@ -289,7 +282,7 @@ export default function Form({
             >
               <GrFormPrevious className='w-5 h-5' /> Previous
             </button>
-            <Modalz />
+            <Modalz onDownload={handleDownload} />
           </div>
         </form>
       )}
