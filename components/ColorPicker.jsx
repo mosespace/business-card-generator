@@ -7,12 +7,12 @@ import {
   TwitterPicker,
 } from "react-color";
 
-export default function ColorPicker({ updateColor }) {
+export default function ColorPicker({ updateColors }) {
   const [currentColor, setCurrentColor] = useState("#ca8a04");
 
   const handleOnChange = (color) => {
     setCurrentColor(color.hex);
-    updateColor(currentColor);
+    updateColors(currentColor);
     // console.log(color.hex);
   };
   return (

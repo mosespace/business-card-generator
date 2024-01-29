@@ -1,12 +1,22 @@
 "use client";
-
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { BiData } from "react-icons/bi";
 
-export default function Modalz() {
+export default function Modalz({ onDownload, backSideSubmit }) {
   const [openModal, setOpenModal] = useState(false);
-  const emailInputRef = useRef();
+  const [numberOfCards, setNumberOfCards] = useState(0);
+
+  const router = useRouter();
+
+  const handlePrintClick = (data) => {
+    backSideSubmit(data);
+    onDownload(numberOfCards);
+    router.push(`/print?cards=${numberOfCards}`);
+  };
 
   return (
     <>
@@ -21,29 +31,38 @@ export default function Modalz() {
         size='md'
         popup
         onClose={() => setOpenModal(false)}
-        initialFocus={emailInputRef}
         className='!bg-white/40 !backdrop-blur-md'
       >
         <Modal.Header />
         <Modal.Body>
           <div className='space-y-6'>
             <h3 className='text-xl font-medium text-gray-900 dark:text-white'>
-              Were Glad Your Finally Here🤗
+              We're Glad You're Finally Here🤗
             </h3>
             <div>
               <div className='mb-2 block'>
-                <Label htmlFor='email' value='How many cards would you want?' />
+                <Label
+                  htmlFor='numberOfCards'
+                  value='How many cards would you want?'
+                />
               </div>
               <TextInput
-                id='email'
+                id='numberOfCards'
                 type='number'
                 placeholder='eg; 10'
+                value={numberOfCards}
+                onChange={(e) =>
+                  setNumberOfCards(parseInt(e.target.value, 10) || 0)
+                }
                 required
               />
             </div>
 
             <div className='w-full'>
-              <Button className='bg-gray-900 hover:!bg-gray-900 hover:shadow-xl focus:!ring-0 focus:!outline-0'>
+              <Button
+                className='bg-gray-900 hover:!bg-gray-900 hover:shadow-xl focus:!ring-0 focus:!outline-0'
+                onClick={handlePrintClick}
+              >
                 Save and Download
               </Button>
             </div>
