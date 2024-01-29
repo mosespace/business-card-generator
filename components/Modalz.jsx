@@ -4,23 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { BiData } from "react-icons/bi";
 
-export default function Modalz({ onDownload }) {
+export default function Modalz({ onDownload, backSideSubmit }) {
   const [openModal, setOpenModal] = useState(false);
   const [numberOfCards, setNumberOfCards] = useState(0);
 
-  // const handleDownload = () => {
-  //   onDownload(numberOfCards);
-  //   setOpenModal(false);
-  // };
-
   const router = useRouter();
 
-  const handlePrintClick = () => {
+  const handlePrintClick = (data) => {
+    backSideSubmit(data);
     onDownload(numberOfCards);
-    // handlePrint();
-    // setNumberOfCards(0);
-    // setOpenModal(false);
     router.push(`/print?cards=${numberOfCards}`);
   };
 

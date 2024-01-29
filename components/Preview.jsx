@@ -1,10 +1,12 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import ColorPicker from "./ColorPicker";
-import Image from "next/image";
-import { MdOutlineAttachEmail } from "react-icons/md";
 import { RiGlobalLine } from "react-icons/ri";
 import { IoCallOutline } from "react-icons/io5";
+import { MdOutlineAttachEmail } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { updateColor } from "@/redux/slices/backgroundColorSlice";
 
 export default function Preview({
   side,
@@ -18,10 +20,16 @@ export default function Preview({
   serviceTwo,
   serviceThree,
 }) {
-  const [getColor, setGetColor] = useState("#be123c");
+  const currentColor = useSelector((store) => store.colorChange.color);
+  // console.log(currentColor);
+  const [getColor, setGetColor] = useState(currentColor);
 
-  function updateColor(color) {
+  const dispatch = useDispatch();
+
+  function updateColors(color) {
+    // console.log(color);
     setGetColor(color);
+    dispatch(updateColor(color));
   }
 
   return (
@@ -119,7 +127,7 @@ export default function Preview({
           </div>
         )}
 
-        <ColorPicker updateColor={updateColor} />
+        <ColorPicker updateColors={updateColors} />
       </div>
     </>
   );

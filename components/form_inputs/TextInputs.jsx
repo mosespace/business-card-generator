@@ -1,5 +1,5 @@
 "use client";
-export default function TextInput({
+export default function TextInputs({
   label,
   name,
   register,

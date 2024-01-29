@@ -1,15 +1,23 @@
 "use client";
 import Image from "next/image";
 import React, { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { RiGlobalLine } from "react-icons/ri";
 import { IoCallOutline } from "react-icons/io5";
-import { MdOutlineAttachEmail } from "react-icons/md";
 import { useReactToPrint } from "react-to-print";
+import { MdOutlineAttachEmail } from "react-icons/md";
 
 export default function PrintContent({ numberOfCards }) {
   const printRef = useRef();
   const router = useRouter();
+
+  const currentColor = useSelector((store) => store.colorChange.color);
+
+  const cardData = useSelector((store) => store.sideChange.formData);
+  console.log(cardData);
+  // console.log(currentColor);
+
   const cardsContent = Array.from({ length: numberOfCards }, (_, index) => (
     <div className=''>
       <div key={index} className='flex items-center justify-center px-0 py-8'>
@@ -18,17 +26,17 @@ export default function PrintContent({ numberOfCards }) {
             <div className='relative cursor-pointer transition-transform duration-500'>
               <div
                 className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl px-10 flex flex-col gap-4 items-center justify-center`}
-                // style={{ backgroundColor: getColor }}
+                style={{ backgroundColor: currentColor }}
               >
-                {/* <Image
-                    width={360}
-                    height={140}
-                    placeholder='empty'
-                    src='/npm-logo.png'
-                    className='w-full object-contain h-14'
-                    alt='Client Logo'
-                  /> */}
-                <h2 className='font-bold text-xl'>{"companyName"}</h2>
+                <Image
+                  width={360}
+                  height={140}
+                  placeholder='empty'
+                  src='/npm-logo.png'
+                  className='w-full object-contain h-14'
+                  alt='Client Logo'
+                />
+                <h2 className='font-bold text-xl'>{cardData.companyName}</h2>
               </div>
             </div>
           </div>
@@ -36,12 +44,12 @@ export default function PrintContent({ numberOfCards }) {
             <div className='relative cursor-pointer transition-transform duration-500'>
               <div
                 className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl absolute`}
-                // style={{ backgroundColor: getColor }}
+                style={{ backgroundColor: getColor }}
               >
-                <img
+                {/* <img
                   src='https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg'
                   className='relative object-cover w-full h-full rounded-xl'
-                />
+                /> */}
                 <div className='w-full px-8 absolute top-5'>
                   <div className='text-left'>
                     <Image
@@ -54,12 +62,12 @@ export default function PrintContent({ numberOfCards }) {
                     />
                   </div>
                   <div className='pt-1'>
-                    <p className='font-light'>{"cardOwner"}</p>
+                    <p className='font-light'>{cardData.cardOwner}</p>
                     <p
                       id='imageCardNumber'
                       className='font-medium tracking-more-wider h-6'
                     >
-                      {"cardOwnerPosition"}
+                      {cardData.cardOwnerPosition}
                     </p>
                   </div>
                   <div className='pt-4 flex justify-between'>
@@ -69,19 +77,19 @@ export default function PrintContent({ numberOfCards }) {
                         id='imageCardName'
                         className='font-medium tracking-widest h-6'
                       >
-                        {"companyName"}
+                        {cardData.companyName}
                       </p>
                       <p className='font-light mt-1 flex items-center gap-2'>
                         <IoCallOutline className='w-4 h-4' />
-                        {"ownerTelOne"}
+                        {cardData.ownerTelOne}
                       </p>
                       <p className='font-light flex items-center gap-2'>
                         <RiGlobalLine className='w-4 h-4' />
-                        {"companyWebsite"}
+                        {cardData.companyWebsite}
                       </p>
                       <p className='font-light flex items-center gap-2'>
                         <MdOutlineAttachEmail className='w-4 h-4' />
-                        {"cardEmail"}
+                        {cardData.cardEmail}
                       </p>
                     </div>
 
@@ -93,9 +101,9 @@ export default function PrintContent({ numberOfCards }) {
                       <p className='font-medium tracking-wider h-6 w-14'>
                         {/* {cardLocation} */} Services;
                       </p>
-                      <p className='font-light'>{"serviceOne"}</p>
-                      <p className='font-light'>{"serviceTwo"}</p>
-                      <p className='font-light'>{"serviceThree"}</p>
+                      <p className='font-light'>{cardData.serviceOne}</p>
+                      <p className='font-light'>{cardData.serviceTwo}</p>
+                      <p className='font-light'>{cardData.serviceThree}</p>
                     </div>
                   </div>
                 </div>
@@ -115,12 +123,6 @@ export default function PrintContent({ numberOfCards }) {
     if (printRef.current) {
       handlePrint();
       router.push("/");
-    } else {
-      // Show a toast error if invoiceRef is not defined
-      alert("⚠️ BEFORE PRINTING NOTE THIS", {
-        description:
-          "Please create an invoice first and then proceed to the preview section before attempting to print. 🤗",
-      });
     }
   };
   return (
