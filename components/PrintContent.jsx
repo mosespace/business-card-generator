@@ -32,7 +32,7 @@ export default function PrintContent({ numberOfCards }) {
                   width={360}
                   height={140}
                   placeholder='empty'
-                  src='/npm-logo.png'
+                  src={cardData.companyLogo}
                   className='w-full object-contain h-14'
                   alt='Client Logo'
                 />
@@ -44,7 +44,7 @@ export default function PrintContent({ numberOfCards }) {
             <div className='relative cursor-pointer transition-transform duration-500'>
               <div
                 className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl absolute`}
-                style={{ backgroundColor: getColor }}
+                style={{ backgroundColor: currentColor }}
               >
                 {/* <img
                   src='https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg'
@@ -56,7 +56,7 @@ export default function PrintContent({ numberOfCards }) {
                       width={360}
                       height={140}
                       placeholder='empty'
-                      src='/npm-logo.png'
+                      src={cardData.companyLogo}
                       className='w-24 h-16 ml-auto object-contain'
                       alt='Client Logo'
                     />

@@ -11,6 +11,7 @@ import { updateColor } from "@/redux/slices/backgroundColorSlice";
 export default function Preview({
   side,
   companyName,
+  companyLogo,
   cardOwner,
   cardOwnerPosition,
   ownerTelOne,
@@ -20,12 +21,13 @@ export default function Preview({
   serviceTwo,
   serviceThree,
 }) {
+  console.log(companyLogo);
   const currentColor = useSelector((store) => store.colorChange.color);
   // console.log(currentColor);
   const [getColor, setGetColor] = useState(currentColor);
 
   const dispatch = useDispatch();
-
+5
   function updateColors(color) {
     // console.log(color);
     setGetColor(color);
@@ -39,20 +41,20 @@ export default function Preview({
           <div className='w-full max-w-lg h-72'>
             <div className='relative cursor-pointer transition-transform duration-500'>
               <div
-                className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl absolute`}
-                // style={{ backgroundColor: getColor }}
+                className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl px-10 flex flex-col gap-4 items-center justify-center`}
+                style={{ backgroundColor: getColor }}
               >
-                <img
+                {/* <img
                   src='https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg'
                   className='relative object-cover w-full h-full rounded-xl'
-                />
+                /> */}
                 <div className='w-full px-8 absolute top-5'>
                   <div className='text-left'>
                     <Image
                       width={360}
                       height={140}
                       placeholder='empty'
-                      src='/npm-logo.png'
+                      src={companyLogo}
                       className='w-24 h-16 ml-auto object-contain'
                       alt='Client Logo'
                     />
@@ -70,7 +72,7 @@ export default function Preview({
                     {/* Content On The LeftSide */}
                     <div>
                       <p
-                        id='imageCardName'
+                    
                         className='font-medium tracking-widest h-6'
                       >
                         {companyName}
@@ -117,7 +119,7 @@ export default function Preview({
                   width={360}
                   height={140}
                   placeholder='empty'
-                  src='/npm-logo.png'
+                  src={companyLogo}
                   className='w-full object-contain h-14'
                   alt='Client Logo'
                 />

@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 export default function Form({
   toggleMode,
   updateComponyName,
+  updateComponyLogo,
   updateCardOwner,
   updateOwnerTelOne,
   updateCompanyWebsite,
@@ -75,6 +76,7 @@ export default function Form({
   // const cardOwner = watch("cardOwner");
 
   updateComponyName(companyName);
+  updateComponyLogo(logo);
   updateCardOwner(cardOwner);
   updateOwnerTelOne(ownerTelOne);
   updateCompanyWebsite(companyWebsite);
@@ -86,14 +88,14 @@ export default function Form({
   updateServiceThree(serviceThree);
 
   const dispatch = useDispatch();
-
+console.log(logo)
   async function onSubmit(data) {
     data.companyLogo = logo;
-    // console.log(data);
     dispatch(updateFormData(data));
     dispatch(setCurrentSlide("back-side"));
     setCurrentDisplay("back-side");
   }
+  
 
   const handleDownload = (numberOfCards) => {
     updateNumberOfCards(numberOfCards);
