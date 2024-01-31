@@ -88,7 +88,7 @@ export default function Form({
   updateServiceThree(serviceThree);
 
   const dispatch = useDispatch();
-console.log(logo)
+// console.log(logo)
   async function onSubmit(data) {
     data.companyLogo = logo;
     dispatch(updateFormData(data));

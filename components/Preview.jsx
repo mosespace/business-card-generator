@@ -21,7 +21,7 @@ export default function Preview({
   serviceTwo,
   serviceThree,
 }) {
-  console.log(companyLogo);
+  console.log(companyName);
   const currentColor = useSelector((store) => store.colorChange.color);
   // console.log(currentColor);
   const [getColor, setGetColor] = useState(currentColor);
@@ -119,7 +119,7 @@ export default function Preview({
                   width={360}
                   height={140}
                   placeholder='empty'
-                  src={companyLogo}
+                  src={companyLogo?companyLogo:"/npm-logo.png"}
                   className='w-full object-contain h-14'
                   alt='Client Logo'
                 />
