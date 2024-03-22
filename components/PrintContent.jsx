@@ -15,8 +15,9 @@ export default function PrintContent({ numberOfCards }) {
   const currentColor = useSelector((store) => store.colorChange.color);
 
   const cardData = useSelector((store) => store.sideChange.formData);
-  console.log(cardData);
+  // console.log(cardData);
   // console.log(currentColor);
+
 
   const cardsContent = Array.from({ length: numberOfCards }, (_, index) => (
     <div className=''>
@@ -46,10 +47,6 @@ export default function PrintContent({ numberOfCards }) {
                 className={`w-full h-72 m-auto rounded-xl text-white shadow-2xl absolute`}
                 style={{ backgroundColor: currentColor }}
               >
-                {/* <img
-                  src='https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg'
-                  className='relative object-cover w-full h-full rounded-xl'
-                /> */}
                 <div className='w-full px-8 absolute top-5'>
                   <div className='text-left'>
                     <Image
@@ -99,7 +96,7 @@ export default function PrintContent({ numberOfCards }) {
                     {/* Content On The RightSide */}
                     <div>
                       <p className='font-medium tracking-wider h-6 w-14'>
-                        {/* {cardLocation} */} Services;
+                        Services;
                       </p>
                       <p className='font-light'>{cardData.serviceOne}</p>
                       <p className='font-light'>{cardData.serviceTwo}</p>
